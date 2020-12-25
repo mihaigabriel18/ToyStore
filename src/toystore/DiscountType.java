@@ -1,4 +1,7 @@
 package toystore;
 
-public class DiscountType {
+public enum DiscountType {
+
+    PERCENTAGE_DISCOUNT,
+    FIXED_DISCOUNT
 }
