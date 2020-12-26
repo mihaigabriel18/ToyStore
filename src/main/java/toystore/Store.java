@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 
-public class Store {
+public class Store implements Serializable {
 
     private String name;
     private Currency currency;
@@ -54,4 +54,30 @@ public class Store {
         else manufacturers.add(manufacturer);
     }
 
+    public void loadStore(String filename) throws IOException {
+        // open in streams
+        FileInputStream inFile = new FileInputStream(filename);
+        ObjectInputStream in = new ObjectInputStream(inFile);
+        // read object
+        try {
+            INSTANCE  = (Store) in.readObject();
+        } catch (ClassNotFoundException e) {
+            System.err.println("Class was not found");
+            e.printStackTrace();
+        }
+        // close streams
+        in.close();
+        inFile.close();
+    }
+
+    public void saveStore(String filename) throws IOException {
+        // open out stream
+        FileOutputStream outFile = new FileOutputStream(filename);
+        ObjectOutputStream out = new ObjectOutputStream(outFile);
+        // write object
+        out.writeObject(this);
+        // close streams
+        out.close();
+        outFile.close();
+    }
 }
