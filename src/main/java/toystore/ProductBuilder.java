@@ -37,4 +37,8 @@ public class ProductBuilder {
         product.setDiscount(discount);
         return this;
     }
+
+    public Product build() {
+        return product;
+    }
 }

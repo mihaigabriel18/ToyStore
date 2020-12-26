@@ -8,5 +8,4 @@ public enum FieldsOfInterest {
     price,
     number_available_in_stock
 
-
 }

@@ -7,5 +7,5 @@ public class Discount {
     String name;
     DiscountType discountType;
     double value;
-    LocalDateTime lastDateApplied;
+    LocalDateTime lastDateApplied = null;
 }
