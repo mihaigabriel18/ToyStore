@@ -5,9 +5,7 @@ import com.opencsv.exceptions.CsvValidationException;
 import org.apache.commons.lang3.EnumUtils;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ParserCSV {
 
@@ -31,7 +29,9 @@ public class ParserCSV {
     /**
      * Parse a stream input that has <em>csv</em> format into a matrix,
      * represented into a {@linkplain List} of lists of strings, strings being
-     * fields of csv file
+     * fields of csv file. For every line read, keep the id in a hashmap, if the
+     * new uniq_id is already in the map, skip this line because we have already read
+     * this object.
      * @param reader Stream for reading the <em>csv</em> file
      * @return A list of columns, each column being a list of strings,
      *         list of a certain field of a <em>csv</em> file
@@ -41,10 +41,15 @@ public class ParserCSV {
     private List<List<String>> csvToList(Reader reader) throws Exception {
         List<List<String>> list = new ArrayList<>();  // csv file is kept on a list of lists of strings
         CSVReader csvReader = new CSVReader(reader);
+        Map<String, Boolean> uniq_id = new HashMap<>();  // map of id's
         List<String> lineList;
         String[] lineString;
         while ((lineString = csvReader.readNext()) != null) {  // read csv line by line
             lineList = Arrays.asList(lineString);
+            int ordinal = FieldsOfInterest.uniq_id.ordinal();
+            if (uniq_id.containsKey(lineList.get(ordinal)))
+                continue;
+            uniq_id.put(lineList.get(ordinal), true);
             list.add(lineList);
         }
         reader.close();

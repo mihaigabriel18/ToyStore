@@ -60,6 +60,25 @@ public class Product {
         return discount;
     }
 
+    /**
+     * Get the cost of the current product, also applying the discount associated
+     * with it.
+     * @return the cost of the this product.
+     */
+    public double getCost() {
+        if (discount == null)  // no discount
+            return price;
+        // there is a discount to apply
+        if (discount.getDiscountType() == DiscountType.FIXED_DISCOUNT) {
+            return price - discount.getValue();
+        }
+        else {
+            // cred si eu ca discount ul in percentage este intre 0 so 100
+            // DELETE LATER!!!!
+            return price * (100 - discount.getValue()) / 100;
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -79,4 +98,5 @@ public class Product {
                 .append(uniqueId)
                 .toHashCode();
     }
+
 }

@@ -2,8 +2,8 @@ package toystore;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Store implements Serializable {
 
@@ -56,7 +56,7 @@ public class Store implements Serializable {
 
     public void loadStore(String filename) throws IOException {
         // open in streams
-        FileInputStream inFile = new FileInputStream(filename);
+        var inFile = new FileInputStream(filename);
         ObjectInputStream in = new ObjectInputStream(inFile);
         // read object
         try {
@@ -72,7 +72,7 @@ public class Store implements Serializable {
 
     public void saveStore(String filename) throws IOException {
         // open out stream
-        FileOutputStream outFile = new FileOutputStream(filename);
+        var outFile = new FileOutputStream(filename);
         ObjectOutputStream out = new ObjectOutputStream(outFile);
         // write object
         out.writeObject(this);
@@ -80,4 +80,24 @@ public class Store implements Serializable {
         out.close();
         outFile.close();
     }
+
+    void changeCurrency(Currency currency) throws CurrencyNotFoundException {
+        this.currency = currency;
+
+    }
+
+    void applyDiscount(Discount discount) throws DiscountNotFoundException,
+            NegativePriceException {
+        discount.setAsAppliedNow();
+    }
+
+    public List<Product> getProductsByManufacturer(Manufacturer manufacturer) {
+        return products.stream().filter(product -> product.getManufacturer().equals(manufacturer))
+                .collect(Collectors.toList());
+    }
+
+    public double calculateTotal(List<Product> products) {
+        return products.stream().mapToDouble(Product::getCost).sum();
+    }
+
 }
