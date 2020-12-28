@@ -14,16 +14,8 @@ public class ParserCSV {
      */
     private final String fileName;
 
-    public List<List<String>> list;
-
-    /**
-     *
-     * @param fileName
-     * @throws Exception
-     */
-    public ParserCSV(String fileName) throws Exception {
+    public ParserCSV(String fileName) {
         this.fileName = fileName;
-        this.list = this.readCSV();
     }
 
     /**
@@ -38,23 +30,23 @@ public class ParserCSV {
      * @throws IOException Error while reading
      * @throws CsvValidationException File does not respect csv format
      */
-    private List<List<String>> csvToList(Reader reader) throws Exception {
-        List<List<String>> list = new ArrayList<>();  // csv file is kept on a list of lists of strings
+    private List<List<String>> csvToList(Reader reader) throws IOException, CsvValidationException {
+        List<List<String>> listCSV = new ArrayList<>();  // csv file is kept on a list of lists of strings
         CSVReader csvReader = new CSVReader(reader);
-        Map<String, Boolean> uniq_id = new HashMap<>();  // map of id's
+        Map<String, Boolean> uniqIds = new HashMap<>();  // map of id's
         List<String> lineList;
         String[] lineString;
         while ((lineString = csvReader.readNext()) != null) {  // read csv line by line
             lineList = Arrays.asList(lineString);
             int ordinal = FieldsOfInterest.uniq_id.ordinal();
-            if (uniq_id.containsKey(lineList.get(ordinal)))
+            if (uniqIds.containsKey(lineList.get(ordinal)))
                 continue;
-            uniq_id.put(lineList.get(ordinal), true);
-            list.add(lineList);
+            uniqIds.put(lineList.get(ordinal), true);
+            listCSV.add(lineList);
         }
         reader.close();
         csvReader.close();
-        return transposeLinesAndColumns(list);
+        return transposeLinesAndColumns(listCSV);
     }
 
     /**
@@ -124,7 +116,7 @@ public class ParserCSV {
                 numberInStock.set(index, "0");
             else
                 // match either a space or a non-breaking space
-                numberInStock.set(index, numberInStock.get(index).split("[  ]")[0]);
+                numberInStock.set(index, numberInStock.get(index).split("[\u00A0 ]")[0]);
         }
     }
 
@@ -133,38 +125,31 @@ public class ParserCSV {
      * keeping only the information that we want from the file. Fields that are being kept
      * are listed in the enum {@link FieldsOfInterest}.
      * @return {@linkplain List} of lines of csv file (a line is a {@linkplain List} of Strings)
-     * @throws Exception Error while reading from the file
+     * @throws CsvReadingException Error while reading from the file
      */
-     public List<List<String>> readCSV() throws Exception {
+     public List<List<String>> readCSV() throws CsvReadingException {
         // opening the stream
         BufferedReader reader;
         try {
             reader = new BufferedReader(new FileReader(fileName));
         } catch (FileNotFoundException e) {
-            System.err.println("Error while opening csv file");
-            throw new IOException(e);
+            e.printStackTrace();
+            throw new CsvReadingException("Error while reading", e);
         }
         // building the matrix based on the csv file and isolating the error if there is to be one
-        List<List<String>> list;
+        List<List<String>> listCSV;
         try {
-            list = csvToList(reader);
+            listCSV = csvToList(reader);
         } catch (IOException e) {
-            System.err.println("Error while reading form the file");
-            throw new Exception(e);
+            e.printStackTrace();
+            throw new CsvReadingException("Error while reading", e);
         } catch (CsvValidationException e) {
-            System.err.println("File may not me in csv format");
-            throw new Exception(e);
+            throw new CsvReadingException("File may not respect csv format", e);
         }
-        keepOnlyRequestedColumns(list);  // parse the matrix and keep only the necessary fields
-        rearrangeInOrder(list);
-        parseNumberInStock(list.get(FieldsOfInterest.number_available_in_stock.ordinal()));
-        return transposeLinesAndColumns(list);  // return it as a list of lines, not columns
-    }
-
-    public static void main(String[] args) throws Exception {
-        ParserCSV p = new ParserCSV("amazon_co-ecommerce_sample.csv");
-        for (List<String> aux : p.list)
-            System.out.println(aux);
+        keepOnlyRequestedColumns(listCSV);  // parse the matrix and keep only the necessary fields
+        rearrangeInOrder(listCSV);
+        parseNumberInStock(listCSV.get(FieldsOfInterest.number_available_in_stock.ordinal()));
+        return transposeLinesAndColumns(listCSV);  // return it as a list of lines, not columns
     }
 
 }

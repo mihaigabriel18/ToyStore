@@ -7,43 +7,49 @@ import java.util.stream.Collectors;
 
 public class Store implements Serializable {
 
-    private String name;
+    @Serial
+    private static final long serialVersionUID = 42L;
+    private final String name;
     private Currency currency;
-    private List<Product> products;
-    private List<Manufacturer> manufacturers;
-    private static Store INSTANCE;
+    private final List<Product> products;
+    private final List<Manufacturer> manufacturers;
+    private static Store instance;
 
-    private Store() {
+    private Store(String name, List<Product> products, List<Manufacturer> manufacturers) {
+        this.name = name;
+        this.products = products;
+        this.manufacturers = manufacturers;
     }
 
     public static Store getInstance() {
-        if (INSTANCE == null)
-            INSTANCE = new Store();
-        return INSTANCE;
+        if (instance == null)
+            instance = new Store("POO Store", new ArrayList<>(), new ArrayList<>());
+        return instance;
     }
 
-    public List<Product> readCSV(String filename) throws Exception {
+    public List<Product> readCSV(String filename) throws CsvReadingException {
         ParserCSV parserCSV = new ParserCSV(filename);
+        List<List<String>> listCsv = parserCSV.readCSV();
         // allocate an array with the size equal to the number of lines in the list
-        int size = parserCSV.list.size();
-        List<Product> products = new ArrayList<>(size);
-        for (int index = 0; index < size; index++) {
+        int size = listCsv.size();
+        List<Product> productCsv = new ArrayList<>(size);
+        for (List<String> strings : listCsv) {
             Product product = new ProductBuilder()
-                    .withUniqueId(parserCSV.list.get(index).get(0))
-                    .withName(parserCSV.list.get(index).get(1))
-                    .withManufacturer(new Manufacturer(parserCSV.list.get(index).get(2),
-                            Integer.parseInt(parserCSV.list.get(index).get(4))))
-                    .withPrice(Double.parseDouble(parserCSV.list.get(index).get(3)))
+                    .withUniqueId(strings.get(0))
+                    .withName(strings.get(1))
+                    .withManufacturer(new Manufacturer(strings.get(2),
+                            Integer.parseInt(strings.get(4))))
+                    .withPrice(Double.parseDouble(strings.get(3)))
                     .withDiscount(null)  // no initial discount
                     .build();
-            products.add(product);
+            productCsv.add(product);
         }
-        return products;
+        return productCsv;
     }
 
     public void addProduct(Product product) throws DuplicateProductException {
         if (products.contains(product))
-            throw new DuplicateProductException("Product already exists in the list");
+            throw new DuplicateProductException("Product already exists in the list"    );
         else
             products.add(product);
     }
@@ -54,35 +60,33 @@ public class Store implements Serializable {
         else manufacturers.add(manufacturer);
     }
 
-    public void loadStore(String filename) throws IOException {
-        // open in streams
-        var inFile = new FileInputStream(filename);
-        ObjectInputStream in = new ObjectInputStream(inFile);
-        // read object
-        try {
-            INSTANCE  = (Store) in.readObject();
-        } catch (ClassNotFoundException e) {
-            System.err.println("Class was not found");
-            e.printStackTrace();
+    public static void loadStore(String filename) throws IOException {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))) {
+            // read object
+            try {
+                instance = (Store) in.readObject();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         }
-        // close streams
-        in.close();
-        inFile.close();
     }
 
     public void saveStore(String filename) throws IOException {
-        // open out stream
-        var outFile = new FileOutputStream(filename);
-        ObjectOutputStream out = new ObjectOutputStream(outFile);
-        // write object
-        out.writeObject(this);
-        // close streams
-        out.close();
-        outFile.close();
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename))) {
+            out.writeObject(this);
+        }
+    }
+
+    void createCurrency() {
+
     }
 
     void changeCurrency(Currency currency) throws CurrencyNotFoundException {
         this.currency = currency;
+
+    }
+
+    void createDiscount() {
 
     }
 

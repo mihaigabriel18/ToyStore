@@ -3,7 +3,12 @@ package toystore;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public class Product {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Product implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 42L;
 
     private String uniqueId;
     private String name;
