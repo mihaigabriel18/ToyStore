@@ -1,0 +1,8 @@
+
+˜
+java:S1130Æ"uRemove the declaration of thrown exception 'toystore.CsvWritingException', as it cannot be thrown from method's body.(¬‡ªûÿÿÿÿ8Àèêúì.
+V	java:S106Ê"9Replace this use of System.out or System.err by a logger.(«‹Îõ8ªÿ³ûì.
+Q
+java:S1128"4Remove this unused import 'java.lang.reflect.Array'.(‡¡É˜8Æ”±úì.
+g
+java:S1128"JRemove this unused import 'com.opencsv.exceptions.CsvValidationException'.(Î¯øö8©Ï¶ûì.

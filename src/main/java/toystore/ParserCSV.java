@@ -1,7 +1,9 @@
 package toystore;
 
-import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvValidationException;
+import com.opencsv.*;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.EnumUtils;
 
 import java.io.*;
@@ -10,51 +12,58 @@ import java.util.*;
 public class ParserCSV {
 
     /**
-     * String representing the name of the <em>csv</em> file
-     */
-    private final String fileName;
-
-    public ParserCSV(String fileName) {
-        this.fileName = fileName;
-    }
-
-    /**
      * Parse a stream input that has <em>csv</em> format into a matrix,
      * represented into a {@linkplain List} of lists of strings, strings being
      * fields of csv file. For every line read, keep the id in a hashmap, if the
      * new uniq_id is already in the map, skip this line because we have already read
      * this object.
+     *
      * @param reader Stream for reading the <em>csv</em> file
      * @return A list of columns, each column being a list of strings,
-     *         list of a certain field of a <em>csv</em> file
-     * @throws IOException Error while reading
-     * @throws CsvValidationException File does not respect csv format
+     * list of a certain field of a <em>csv</em> file
+     * @throws IOException            Error while reading
      */
-    private List<List<String>> csvToList(Reader reader) throws IOException, CsvValidationException {
+    private List<List<String>> csvToList(Reader reader) throws IOException {
         List<List<String>> listCSV = new ArrayList<>();  // csv file is kept on a list of lists of strings
-        CSVReader csvReader = new CSVReader(reader);
+        CSVParser records = new CSVParser(reader, CSVFormat.DEFAULT
+                .withIgnoreHeaderCase());
         Map<String, Boolean> uniqIds = new HashMap<>();  // map of id's
-        List<String> lineList;
-        String[] lineString;
-        while ((lineString = csvReader.readNext()) != null) {  // read csv line by line
-            lineList = Arrays.asList(lineString);
+        for (CSVRecord record : records) {
+            List<String> lineList = new ArrayList<>();
+            for (int i = 0; i < FieldsOfInterest.values().length; i++)
+                lineList.add(record.get(i));
+            // skip lines that have some of the fields empty and duplicate fields (based on the id)
             int ordinal = FieldsOfInterest.uniq_id.ordinal();
-            if (uniqIds.containsKey(lineList.get(ordinal)))
+            if (uniqIds.containsKey(lineList.get(ordinal)) || lineList.stream().anyMatch(""::equals))
                 continue;
             uniqIds.put(lineList.get(ordinal), true);
             listCSV.add(lineList);
         }
         reader.close();
-        csvReader.close();
         return transposeLinesAndColumns(listCSV);
+    }
+
+    /**
+     * If first line of csv list has header format, delete it
+     * format checking is matching first element with values of {@link FieldsOfInterest} enum
+     *
+     * @param listCsv list of lists of csv values
+     */
+    private void removeHeaderOfCsv(List<List<String>> listCsv) {
+        for (FieldsOfInterest field : FieldsOfInterest.values())
+            if (listCsv.get(0).get(0).equals(field.name())) {
+                listCsv.remove(0);
+                return;
+            }
     }
 
     /**
      * Considering the input a matrix, this function transposes the matrix. In other
      * words if the input is a list of columns, the function returns a list of lines;
      * and for a list of lines, it returns a list of columns
+     *
      * @param initial {@linkplain List} of lists of strings in a matrix format,
-     *        either a list of lines, or a list of columns
+     *                either a list of lines, or a list of columns
      * @return {@linkplain List} of lists of strings in a matrix format
      */
     private List<List<String>> transposeLinesAndColumns(List<List<String>> initial) {
@@ -77,6 +86,7 @@ public class ParserCSV {
      * Remove all columns that are not a member of {@link FieldsOfInterest}
      * enum, to make a field visible in the in final list, add a new entry in the
      * specified enum
+     *
      * @param list {@linkplain List} of columns (which are lists of strings)
      */
     private void keepOnlyRequestedColumns(List<List<String>> list) {
@@ -88,6 +98,7 @@ public class ParserCSV {
      * in the {@link FieldsOfInterest} enumeration. To get the columns in a specific order
      * modify the order of entries in the enum linked above. First enumeration value will
      * represent the first column of the matrix
+     *
      * @param list list of columns
      */
     private void rearrangeInOrder(List<List<String>> list) {
@@ -108,6 +119,7 @@ public class ParserCSV {
      * string is appended to the to the word. The only condition is that the number of
      * new products is the first one in the line and separated by either a space or a
      * non-breaking space from the rest of the words.
+     *
      * @param numberInStock column with all of the numbers of new products
      */
     private void parseNumberInStock(List<String> numberInStock) {
@@ -124,10 +136,11 @@ public class ParserCSV {
      * Opens the file with name of the parameter and parses it into a usable format,
      * keeping only the information that we want from the file. Fields that are being kept
      * are listed in the enum {@link FieldsOfInterest}.
+     *
      * @return {@linkplain List} of lines of csv file (a line is a {@linkplain List} of Strings)
      * @throws CsvReadingException Error while reading from the file
      */
-     public List<List<String>> readCSV() throws CsvReadingException {
+    public List<List<String>> readCSV(String fileName) throws CsvReadingException {
         // opening the stream
         BufferedReader reader;
         try {
@@ -143,13 +156,49 @@ public class ParserCSV {
         } catch (IOException e) {
             e.printStackTrace();
             throw new CsvReadingException("Error while reading", e);
-        } catch (CsvValidationException e) {
-            throw new CsvReadingException("File may not respect csv format", e);
         }
         keepOnlyRequestedColumns(listCSV);  // parse the matrix and keep only the necessary fields
         rearrangeInOrder(listCSV);
         parseNumberInStock(listCSV.get(FieldsOfInterest.number_available_in_stock.ordinal()));
-        return transposeLinesAndColumns(listCSV);  // return it as a list of lines, not columns
+        List<List<String>> finalList = transposeLinesAndColumns(listCSV);
+        removeHeaderOfCsv(finalList);
+        return finalList;  // return it as a list of lines, not columns
+    }
+
+    public void reformatLineForWriting(List<String> line) {
+        line.set(4, line.get(4) + '\u00A0' + "NEW");
+    }
+
+    /**
+     * @param listCSV
+     * @param fileName
+     * @throws CsvWritingException
+     */
+    public void writeCSV(List<List<String>> listCSV, String fileName) throws CsvWritingException {
+        try (   // opening the streams
+                Writer writer = new BufferedWriter(new FileWriter(fileName));
+                CSVWriter csvWriter = new CSVWriter(writer);
+
+        ) {
+            // write header
+            String[] headRecord = {"uniq_id", "product_name", "manufacturer", "price", "number_available_in_stock"};
+            csvWriter.writeNext(headRecord);
+            // write every line
+            for (List<String> line : listCSV) {
+                reformatLineForWriting(line);
+                csvWriter.writeNext(line.toArray(new String[0]));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new CsvWritingException("Error while writing", e);
+        }
+    }
+
+    public static void main(String[] args) throws CsvReadingException, CsvWritingException {
+        ParserCSV parserCSV = new ParserCSV();
+        List<List<String>> matrix = parserCSV.readCSV("amazon_co-ecommerce_sample.csv");
+        for (List<String> name : matrix)
+            System.out.println(name);
     }
 
 }

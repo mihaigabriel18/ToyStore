@@ -1,0 +1,10 @@
+
+
+java:S1130i"{Remove the declaration of thrown exception 'toystore.DiscountNotFoundException', as it cannot be thrown from method's body.(ÖÝÚçÿÿÿÿÿ8·‚‘êì.
+•
+java:S1130j"xRemove the declaration of thrown exception 'toystore.NegativePriceException', as it cannot be thrown from method's body.(ªÂ•ø8·‚‘êì.
+V
+java:S1128"4Remove this unused import 'java.time.LocalDateTime'.(æÃ§ƒüÿÿÿÿ8ñþÿéì.
+>
+java:S1068"(Remove this unused "name" private field.(Ú§×œ
+]	java:S125$"<This block of commented-out lines of code should be removed.(»Üßþþÿÿÿÿ8ÎÀ¥êì.

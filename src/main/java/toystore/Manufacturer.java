@@ -6,16 +6,17 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import java.io.Serial;
 import java.io.Serializable;
 
-public class Manufacturer implements Serializable {
+public class Manufacturer implements Serializable, Comparable<Manufacturer> {
     @Serial
     private static final long serialVersionUID = 42L;
 
-    private String name;
+    private final String name;
     private int countProducts;
 
-    public Manufacturer(String name, int countProducts) {
+    public Manufacturer(String name) {
         this.name = name;
-        this.countProducts = countProducts;
+        // on object creation, there are no products associated with this manufacturer
+        this.countProducts = 0;
     }
 
     public String getName() {
@@ -26,12 +27,15 @@ public class Manufacturer implements Serializable {
         return countProducts;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * Add a product to this manufacturer
+     */
+    public void appendProduct() {
+        countProducts++;
     }
 
-    public void setCountProducts(int countProducts) {
-        this.countProducts = countProducts;
+    public int countProducts() {
+        return countProducts;
     }
 
     @Override
@@ -52,5 +56,15 @@ public class Manufacturer implements Serializable {
         return new HashCodeBuilder(17, 37)
                 .append(name)
                 .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    @Override
+    public int compareTo(Manufacturer manufacturer) {
+        return name.compareTo(manufacturer.name);
     }
 }

@@ -12,7 +12,13 @@ public class Currency implements Serializable {
     private String name;
     private String symbol;
     private double parityToEur;
-    private static Map<String, Currency> allCurrencies = new HashMap<>();
+    private static final Map<String, Currency> allCurrencies = new HashMap<>();
+
+    public Currency(String name, String symbol, double parityToEur) {
+        this.name = name;
+        this.symbol = symbol;
+        this.parityToEur = parityToEur;
+    }
 
     public String getName() {
         return name;
@@ -34,15 +40,32 @@ public class Currency implements Serializable {
         this.symbol = symbol;
     }
 
-    public void setParityToEur(double parityToEur) {
+    public void updateParity(double parityToEur) {
         this.parityToEur = parityToEur;
     }
 
-    void updateParity(double parityToEur) {
-        this.parityToEur = parityToEur;
+    public static Map<String, Currency> getAllCurrencies() {
+        return allCurrencies;
+    }
+
+    public double convertPrice(String price) {
+        return Double.parseDouble(price);
+    }
+
+    public double convertPrice(String price, Currency currency) {
+        return convertPrice(price) / this.getParityToEur() * currency.getParityToEur();
     }
 
     public static void addCurrency(Currency currency) {
         allCurrencies.put(currency.getName(), currency);
     }
+
+    public static boolean isValid(String name) {
+        return allCurrencies.containsKey(name);
+    }
+
+    public static Currency getCurrencyByName(String name) {
+        return allCurrencies.get(name);
+    }
+
 }

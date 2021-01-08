@@ -6,7 +6,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import java.io.Serial;
 import java.io.Serializable;
 
-public class Product implements Serializable {
+public class Product implements Serializable, Cloneable {
     @Serial
     private static final long serialVersionUID = 42L;
 
@@ -104,4 +104,18 @@ public class Product implements Serializable {
                 .toHashCode();
     }
 
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+    @Override
+    public String toString() {
+        Store store = Store.getInstance();
+        return uniqueId + "," +
+                name + "," +
+                manufacturer + "," +
+                store.getCurrency().getSymbol() + price + "," +
+                quantity;
+    }
 }
