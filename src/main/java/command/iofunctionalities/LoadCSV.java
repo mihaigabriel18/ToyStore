@@ -1,9 +1,10 @@
 package command.iofunctionalities;
 
 import command.Command;
-import toystore.CsvReadingException;
-import toystore.Product;
+import toystore.parser.*;
+import toystore.productline.*;
 import toystore.Store;
+import toystore.financial.CurrencyNotFoundException;
 
 import java.util.List;
 
@@ -17,15 +18,16 @@ public class LoadCSV implements Command {
 
     @Override
     public void execute() {
+        Store.getInstance().renewStore();
         Store ourStore = Store.getInstance();
         List<Product> storeProducts = ourStore.getProducts();
         // list of products obtained by reading the csv
         List<Product> csvProducts;
         try {
             csvProducts = ourStore.readCSV(filename);
-        } catch (CsvReadingException e) {
+        } catch (CurrencyNotFoundException e) {
             e.printStackTrace();
-            throw new RuntimeException("Error reading the input file", e);
+            throw new CsvReadingException("Currency written in csv not added yet, exiting...", e);
         }
         storeProducts.addAll(csvProducts);
     }

@@ -9,12 +9,16 @@ import static java.lang.System.*;
 
 public class SaveStore implements Command {
 
-    private static final String FILENAME = "toyStoreSerialized";
+    private final String filename;
+
+    public SaveStore(String filename) {
+        this.filename = filename;
+    }
 
     @Override
     public void execute() {
         try {
-            Store.getInstance().saveStore(FILENAME);
+            Store.getInstance().saveStore(filename);
         } catch (IOException e) {
             e.printStackTrace();
             out.println(e.getMessage());

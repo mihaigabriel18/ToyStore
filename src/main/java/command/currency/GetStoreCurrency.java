@@ -1,8 +1,8 @@
 package command.currency;
 
 import command.Command;
-import toystore.Currency;
 import toystore.Store;
+import toystore.financial.Currency;
 
 import static java.lang.System.*;
 

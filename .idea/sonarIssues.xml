@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="issues">
+    <option name="index">
+      <map>
+        <entry key="$PROJECT_DIR$/../Desktop/VODS COLLEGE/PROGRAMARE ORIENTATA PE OBIECTE/Lab/lab9/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Desktop/VODS COLLEGE/PROGRAMARE ORIENTATA PE OBIECTE/Lab/lab9/src/com/company/Lista.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Desktop/VODS COLLEGE/PROGRAMARE ORIENTATA PE OBIECTE/Lab/lab9/src/com/company/Produs.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Desktop/VODS COLLEGE/PROGRAMARE ORIENTATA PE OBIECTE/Lab/lab9/src/com/company/list/Lista.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Desktop/VODS COLLEGE/PROGRAMARE ORIENTATA PE OBIECTE/Lab/lab9/src/com/company/list/ListaExemple.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Desktop/VODS COLLEGE/PROGRAMARE ORIENTATA PE OBIECTE/Lab/lab9/src/com/company/productline/Produs.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Desktop/VODS COLLEGE/PROGRAMARE ORIENTATA PE OBIECTE/Lab/lab9/src/com/company/productline/ProdusAlimentar.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Desktop/VODS COLLEGE/PROGRAMARE ORIENTATA PE OBIECTE/Lab/lab9/src/com/company/productline/ProdusCuratenie.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Desktop/VODS COLLEGE/PROGRAMARE ORIENTATA PE OBIECTE/Lab/lab9/src/com/company/productline/ProdusExemple.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Desktop/VODS COLLEGE/PROGRAMARE ORIENTATA PE OBIECTE/Lab/lab9/src/com/company/productline/ProdusIgiena.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Desktop/VODS COLLEGE/PROGRAMARE ORIENTATA PE OBIECTE/Lab/lab9/src/main/java/com/company/productline/Produs.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Desktop/VODS COLLEGE/PROGRAMARE ORIENTATA PE OBIECTE/Lab/test_generics_curs10/src/com/company/Egg.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Desktop/VODS COLLEGE/PROGRAMARE ORIENTATA PE OBIECTE/Lab/test_generics_curs10/src/com/company/Main.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Desktop/VODS COLLEGE/PROGRAMARE ORIENTATA PE OBIECTE/Lab/untitled/src/com/company/Main.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/command/currency/UpdateParity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/testing/Main.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/toystore/Store.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/toystore/financial/CannotChangeParityException.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/toystore/financial/Currency.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/toystore/financial/CurrencyNotFoundException.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/toystore/financial/Discount.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/toystore/financial/DiscountNotFoundException.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/toystore/financial/DiscountType.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/toystore/financial/NegativePriceException.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/toystore/parser/CsvReadingException.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/toystore/parser/CsvWritingException.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/toystore/parser/FieldsOfInterest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/toystore/parser/ParserCSV.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/toystore/productline/DuplicateManufacturerException.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/toystore/productline/DuplicateProductException.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/toystore/productline/Manufacturer.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/toystore/productline/Product.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/toystore/productline/ProductBuilder.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/tests/res/test4.in">
+          <value>
+            <set />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

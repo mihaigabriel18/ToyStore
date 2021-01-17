@@ -10,12 +10,16 @@ import static java.lang.System.*;
 
 public class LoadStore implements Command {
 
-    private static final String FILENAME = "toyStoreSerialized";
+    private  final String filename;
+
+    public LoadStore(String filename) {
+        this.filename = filename;
+    }
 
     @Override
     public void execute() {
         try {
-            Store.loadStore(FILENAME);
+            Store.loadStore(filename);
         } catch (IOException e) {
             e.printStackTrace();
             out.println(e.getMessage());

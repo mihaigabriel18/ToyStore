@@ -1,16 +1,19 @@
 package command;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Console {
 
-    List<Command> commands;
+    private static final List<Command> commands = new ArrayList<>();
 
-    public void addRequest(Command command) {
+    private Console() {}
+
+    public static void addRequest(Command command) {
         commands.add(command);
     }
 
-    public void executeCommands() {
+    public static void executeCommands() {
         commands.forEach(Command::execute);
     }
 }

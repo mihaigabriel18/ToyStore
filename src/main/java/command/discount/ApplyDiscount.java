@@ -3,6 +3,7 @@ package command.discount;
 import command.Command;
 import org.apache.commons.lang3.EnumUtils;
 import toystore.*;
+import toystore.financial.*;
 
 import static java.lang.System.*;
 
@@ -12,7 +13,7 @@ public class ApplyDiscount implements Command {
     private final double value;
 
     public ApplyDiscount(String type, String value) {
-        this.type = EnumUtils.getEnum(DiscountType.class, type);
+        this.type = EnumUtils.getEnum(DiscountType.class, type + "_DISCOUNT");
         this.value = Double.parseDouble(value);
     }
 

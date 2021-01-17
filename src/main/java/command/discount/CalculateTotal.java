@@ -1,8 +1,9 @@
 package command.discount;
 
 import command.Command;
-import toystore.Product;
+
 import toystore.Store;
+import toystore.productline.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +23,6 @@ public class CalculateTotal implements Command {
     public void execute() {
         Store ourStore = Store.getInstance();
         List<Product> productList = uniqIds.stream().map(ourStore::getProductById).collect(Collectors.toList());
-        out.println(ourStore.calculateTotal(productList));
+        out.println(ourStore.getCurrency().getSymbol() + String.format("%,.3f", ourStore.calculateTotal(productList)));
     }
 }

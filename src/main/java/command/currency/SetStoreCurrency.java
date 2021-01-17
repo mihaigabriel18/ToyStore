@@ -1,8 +1,10 @@
 package command.currency;
 
 import command.Command;
-import toystore.CurrencyNotFoundException;
 import toystore.Store;
+import toystore.financial.CurrencyNotFoundException;
+
+import static java.lang.System.*;
 
 public class SetStoreCurrency implements Command {
 
@@ -18,7 +20,7 @@ public class SetStoreCurrency implements Command {
             Store.getInstance().changeCurrency(currencyName);
         } catch (CurrencyNotFoundException e) {
             e.printStackTrace();
-            System.out.println("Currency was not found");
+            out.println("Currency was not found");
         }
     }
 }

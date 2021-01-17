@@ -1,7 +1,10 @@
 package command.currency;
 
 import command.Command;
-import toystore.Currency;
+import toystore.financial.CannotChangeParityException;
+import toystore.financial.Currency;
+
+import static java.lang.System.*;
 
 public class UpdateParity implements Command {
 
@@ -15,6 +18,11 @@ public class UpdateParity implements Command {
 
     @Override
     public void execute() {
-        Currency.getCurrencyByName(currencyName).updateParity(parityToEur);
+        try {
+            Currency.getCurrencyByName(currencyName).updateParity(parityToEur);
+        } catch (CannotChangeParityException e) {
+            e.printStackTrace();
+            out.println(e.getMessage());
+        }
     }
 }

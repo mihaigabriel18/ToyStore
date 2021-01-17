@@ -2,8 +2,8 @@ package command.discount;
 
 import command.Command;
 import org.apache.commons.lang3.EnumUtils;
-import toystore.DiscountType;
 import toystore.Store;
+import toystore.financial.DiscountType;
 
 public class AddDiscount implements Command {
 
@@ -13,7 +13,7 @@ public class AddDiscount implements Command {
 
     public AddDiscount(String discountType, String value, String name) {
         // get enum item by name
-        this.discountType = EnumUtils.getEnum(DiscountType.class, discountType);
+        this.discountType = EnumUtils.getEnum(DiscountType.class, discountType + "_DISCOUNT");
         this.value = Double.parseDouble(value);
         this.name = name;
     }

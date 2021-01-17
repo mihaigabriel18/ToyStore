@@ -1,7 +1,7 @@
 package command.product;
 
 import command.Command;
-import toystore.Manufacturer;
+import toystore.productline.*;
 import toystore.Store;
 
 import java.util.List;
