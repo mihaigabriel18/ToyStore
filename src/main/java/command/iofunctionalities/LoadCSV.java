@@ -8,14 +8,32 @@ import toystore.financial.CurrencyNotFoundException;
 
 import java.util.List;
 
+/**
+ * Concrete command, implementing abstract {@link Command} interface from command design pattern
+ * <p>
+ *     This specific command will lead a store <strong>from</strong> a csv file,
+ *     receives one parameter listed in the constructor
+ * </p>
+ */
+
 public class LoadCSV implements Command {
 
+    /**
+     * first parameter of command
+     */
     private final String filename;
 
+    /**
+     * Initialize all class's fields
+     * @param filename name of csv file
+     */
     public LoadCSV(String filename) {
         this.filename = filename;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute() {
         Store.getInstance().renewStore();

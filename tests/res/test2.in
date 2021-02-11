@@ -1,0 +1,20 @@
+addcurrency GBP £ 1.10
+loadcsv tests/res/amazon_co-ecommerce_sample.csv
+listmanufacturers
+listproductsbymanufacturer Faller
+setstorecurrency YEN
+adddiscount PERCENTAGE 90 "come get your deal!!"
+applydiscount PERCENTAGE 90
+adddiscount FIXED 2 "-2 for everything"
+calculatetotal eaa7356d0552e564a405fc35ceee3bf1 9cfcb02573dc2bb4f04d8660dec33e84
+savestore tests/out/test2/binarystore2.data
+listproducts
+listdiscounts
+applydiscount FIXED 2
+listmanufacturers
+applydiscount PERCENTAGE 90
+listproducts
+loadstore tests/out/test2/binarystore2.data
+calculatetotal 995777a914a1edb958a0da25b145643b 995777a914a1edb958a0da25b145643b cc4c844b8b6c42c63a2c024229ef0b81
+savecsv tests/out/test2/test2.csv
+exit

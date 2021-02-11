@@ -96,8 +96,7 @@ public class Currency implements Serializable {
     }
 
     /**
-     * Changes the currency's parity and adjusts the prices of the products
-     * in {@link Store} if this is also the current currency.
+     * Changes the currency's parity
      * @param parityToEur new value for the parity to euro
      * @throws CannotChangeParityException if the currency it is applied on it's EURO
      */
@@ -105,10 +104,6 @@ public class Currency implements Serializable {
         // corner case of changing the parity of euro relative to itself
         if (this.equals(allCurrencies.get("EUR")))
             throw new CannotChangeParityException("Cannot change parity of Euro relative to itself");
-        // also change the prices of products if it's the current currency
-        if (Store.getInstance().getCurrency().equals(this))
-            Store.getInstance().getProducts().forEach(product ->
-                updatePriceForProduct(product, parityToEur, this.parityToEur));
         this.parityToEur = parityToEur;
     }
 
@@ -211,4 +206,5 @@ public class Currency implements Serializable {
                 .append(name)
                 .toHashCode();
     }
+
 }

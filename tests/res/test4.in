@@ -1,0 +1,50 @@
+addcurrency GBP £ 1.10
+addcurrency CNY ¥ 0.13
+setstorecurrency CNY
+loadcsv tests/res/amazon_co-ecommerce_sample.csv
+adddiscount PERCENTAGE 120 "Insane Discount"
+applydiscount PERCENTAGE 120
+calculatetotal c1976e03a3a8f7acca6b75e0668a9ea7 95534049f7431eea318a6018bc1eff3f 2c75d86e52018a1e283ff53bb0fe8377 2c75d86e52018a1e283ff53bb0fe8377 92becb38c3d83e23c04eccb73157498d
+listdiscounts
+calculatetotal 16675397c352b7d68b45f42d3086f304
+listcurrencies
+adddiscount PERCENTAGE 50 "50% Christmas Miracle"
+applydiscount PERCENTAGE 20
+listcurrencies
+listdiscounts
+setstorecurrency EUR
+adddiscount FIXED 10 "-10 For Every One"
+applydiscount PERCENTAGE 50
+listproducts
+listproductsbymanufacturer Angry Birds
+setstorecurrency USD
+setstorecurrency GBP
+savecsv tests/out/test4/test4.csv
+listdiscounts
+getstorecurrency
+savestore tests/out/test4/binarystore4.data
+showproduct 8aa01bfb947d2aa80e65bc2dc34ec3da
+listproducts
+updateparity GBP 2
+listmanufacturers
+showproduct not_supposed_to_exist
+loadstore tests/out/test4/binarystore4.data
+applydiscount FIXED 1
+savecsv tests/out/test4/test4_2.csv
+savestore tests/out/test4/binarystore4_1.data
+listmanufacturers
+updateparity CNY 0.1
+loadstore tests/out/test4/binarystore4_1.data
+savecsv tests/out/test4/test4_1.csv
+updateparity GBP 1.5
+setstorecurrency GBP
+getstorecurrency
+addcurrency HEI ^ 1.7
+listcurrencies
+listproducts
+calculatetotal eac7efa5dbd3d667f26eb3d3ab504464 b17540ef7e86e461d37f3ae58b7b72ac 348f344247b0c1a935b1223072ef9d8a
+updateparity EUR 1.5
+listproductsbymanufacturer CATO
+calculatetotal 2c75d86e52018a1e283ff53bb0fe8377 2c75d86e52018a1e283ff53bb0fe8377 92becb38c3d83e23c04eccb73157498d
+savecsv tests/out/test4/binarystore4.data
+quit

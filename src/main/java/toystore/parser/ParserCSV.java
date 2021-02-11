@@ -31,6 +31,7 @@ public class ParserCSV {
      * Opens the file with name of the parameter and parses it into a usable format,
      * keeping only the information that we want from the file. Fields that are being kept
      * are listed in the enum {@link FieldsOfInterest}.
+     * @param fileName name of the csv file
      * @return {@linkplain List} of lines of csv file (a line is a {@linkplain List} of Strings)
      * @throws CsvReadingException If any errors appear while reading to the csv file
      */

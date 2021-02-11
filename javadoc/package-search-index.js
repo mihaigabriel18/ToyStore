@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"command"},{"l":"command.currency"},{"l":"command.discount"},{"l":"command.iofunctionalities"},{"l":"command.product"},{"l":"testing"},{"l":"toystore"},{"l":"toystore.financial"},{"l":"toystore.parser"},{"l":"toystore.productline"}]

@@ -1,0 +1,15 @@
+addcurrency GBP £ 1.10
+loadcsv tests/res/amazon_co-ecommerce_sample.csv
+listproducts
+setstorecurrency GBP
+adddiscount PERCENTAGE 30 "30% Black Friday"
+applydiscount PERCENTAGE 30
+listmanufacturers
+listproductsbymanufacturer Preiser
+addcurrency USD $ 0.82
+setstorecurrency USD
+adddiscount FIXED 4 "-1$ per item at Walmart Sunday Sale"
+applydiscount FIXED 4
+listdiscounts
+savecsv tests/out/test1/test1.csv
+quit

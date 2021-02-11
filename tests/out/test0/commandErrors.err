@@ -1,0 +1,7 @@
+toystore.productline.RequestTooManyProducts: Requested too many products, the store doesn't have that many
+	at toystore.Store.calculateTotal(Store.java:368)
+	at command.discount.CalculateTotal.execute(CalculateTotal.java:45)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at command.Console.executeCommands(Console.java:36)
+	at testing.Main.readInput(Main.java:75)
+	at testing.Main.main(Main.java:91)

@@ -1,0 +1,14 @@
+toystore.financial.CurrencyNotFoundException: Currency not valid, create it first!
+	at toystore.Store.changeCurrency(Store.java:291)
+	at command.currency.SetStoreCurrency.execute(SetStoreCurrency.java:37)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at command.Console.executeCommands(Console.java:36)
+	at testing.Main.readInput(Main.java:75)
+	at testing.Main.main(Main.java:91)
+toystore.financial.NegativePriceException: One of the products has a negative price
+	at toystore.Store.applyDiscount(Store.java:328)
+	at command.discount.ApplyDiscount.execute(ApplyDiscount.java:47)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at command.Console.executeCommands(Console.java:36)
+	at testing.Main.readInput(Main.java:75)
+	at testing.Main.main(Main.java:91)

@@ -1,0 +1,31 @@
+addcurrency GBP £ 1.10
+addcurrency CNY ¥ 0.13
+setstorecurrency CNY
+loadcsv tests/res/amazon_co-ecommerce_sample.csv
+listcurrencies
+adddiscount FIXED 0.5 "small sale before easter"
+updateparity CNY 0.2
+calculatetotal 348f344247b0c1a935b1223072ef9d8a 0ca63377ca8015e585efa1d418f04756 cd783d0b8b44e631b9788b203eaaefae
+listmanufacturers
+showproduct cd783d0b8b44e631b9788b203eaaefae
+listproductsbymanufacturer Bandai
+setstorecurrency EUR
+savestore tests/out/test3/binarystore3.data
+adddiscount PERCENTAGE -10 "what is this discount???"
+applydiscount PERCENTAGE -10
+listdiscounts
+loadstore tests/out/test3/binarystore3.data
+showproduct 7fa63c36b92bc52acd490c5774ea4101
+adddiscount PERCENTAGE 200 "so we giving away money at this point"
+applydiscount PERCENTAGE 200
+savestore tests/out/test3/binarystore3_1.data
+updateparity GBP 1
+applydiscount FIXED 0.5
+calculatetotal 0c99ecefabf3ec25d4fae53d0646fb3b 0c99ecefabf3ec25d4fae53d0646fb3b 5962c0a2623129d656aac1ee19239dcb
+listmanufacturers
+showproduct 8cc983a24c305a6dc91e3d8e6e421a72
+loadstore tests/out/test3/binarystore3_1.data
+listproducts
+listdiscounts
+savecsv tests/out/test3/test3.csv
+quit
